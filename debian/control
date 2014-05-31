@@ -1,0 +1,21 @@
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+Source: anon-gw-first-run-notice
+Section: misc
+Priority: optional
+Maintainer: Patrick Schleizer <adrelanos@riseup.net>
+Build-Depends: debhelper (>= 8), faketime, git
+Homepage: https://github.com/Whonix/anon-gw-first-run-notice
+Vcs-Browser: https://github.com/Whonix/anon-gw-first-run-notice
+Vcs-Git: https://github.com/Whonix/anon-gw-first-run-notice.git
+Standards-Version: 3.9.4
+
+Package: anon-gw-first-run-notice
+Architecture: all
+Depends: python, ${misc:Depends}
+Description: First Run Notice for Anonymity Linux Distribution Gateways
+ Warns users use not to use the gateway as a workstation.
+ .
+ Has a "do not show this message again" checkbox.
