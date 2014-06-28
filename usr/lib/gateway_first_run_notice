@@ -5,8 +5,8 @@ import sys
 import os
 from subprocess import check_output
 
-if os.path.exists("/home/user/.whonix"):
-    if os.path.exists("/home/user/.whonix/first_use_check.done"):
+if os.path.exists("/home/user/.gateway"):
+    if os.path.exists("/home/user/.gateway/first_use_check.done"):
         sys.exit(0)
     else:
         itype = "information"
@@ -26,5 +26,5 @@ add yours and remove default one -> apply -> Done.</blockquote></p>
         button = "yesno"
         answer = int(check_output(["/usr/lib/generic_gui_message", itype, title, msg, question, button]))
         if answer == 65536: # button 'No' pressed
-            f = open("/home/user/.whonix/first_use_check.done", "w")
+            f = open("/home/user/.gateway/first_use_check.done", "w")
             f.close()
