@@ -2,85 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PyQt4 import QtGui, QtCore
-from subprocess import call
+import os
+from subprocess import check_output
 
-
-folder_return_code = call("ls ~/.gateway", shell=True)
-if folder_return_code == 0:
-    file_return_code = call("cat ~/.gateway/first_use_check.done", shell=True)
-    if file_return_code == 0:
-        sys.exit()
-else:
-    call("mkdir ~/.gateway", shell=True)
-
-
-class Notice(QtGui.QDialog):
-
-    def __init__(self):
-
-        super(Notice, self).__init__()
-
-        self.initUI()
-
-    def initUI(self):
-
-        cb = QtGui.QCheckBox('Do not show this message again', self)
-        cb.move(25, 230)
-        cb.stateChanged.connect(self.checkState)
-
-        OKbtn = QtGui.QPushButton('OK', self)
-        OKbtn.clicked.connect(QtCore.QCoreApplication.instance().quit)
-        OKbtn.resize(OKbtn.sizeHint())
-        OKbtn.move(265, 260)
-
-        lb = QtGui.QLabel(
-"""
-Welcome to Whonix-Gateway!
-
-This is NOT a personal work station for your own private activities! So please do NOT use Whonix-Gateway for any purpose other than configuring Tor and Whonix.
-
-The more you learn about Whonix and anonymity, the safer you can become. Reading Whonix documentation is recommended.
-
-If your host has little RAM, you are advised to reduce Whonix-Gateway RAM to 128 MB. No graphical desktop environment will be started in that case. A Whonix-Gateway without graphical desktop environment works as good as one with, it is just not that convenient. If you want, you can sometimes start a graphical desktop environment and sometimes only a terminal by toggling how much RAM is available to Whonix-Gateway. Documentation about this feature: https://www.whonix.org/wiki/Desktop
-
-If you want to change the keyboard layout from the default \"us\" to something else:
-Start menu button -> Applications -> Settings -> System Settings -> input devices -> layout -> add yours and remove default one -> apply -> Done.
-
-Default username: user
-Default password: changeme
-""", self)
-        lb.setGeometry(0, 0, 550, 190)  # window vsize -110.
-        lb.setWordWrap(True)
-        lb.move(25, 20)
-
-        self.resize(600, 350)
-        #self.center()
-        self.setWindowTitle('First use notice')
-        self.show()
-
-    def checkState(self, state):
-
-        if (str(state)) == "2":
-            f = open("/home/user/.gateway/first_use_check.done", "w")  # IOError if "~/.gateway"
+if os.path.exists("/home/user/.whonix"):
+    if os.path.exists("/home/user/.whonix/first_use_check.done"):
+        sys.exit(0)
+    else:
+        itype = "information"
+        title = "First use notice"
+        msg = """Welcome to Whonix-Gateway!
+<p>This is NOT a personal work station for your own private activities! So please do NOT use Whonix-Gateway
+for any purpose other than configuring Tor and Whonix.</p>
+<p>The more you learn about Whonix and anonymity, the safer you can become. Reading Whonix documentation
+is recommended.</p>
+<p>If your host has little RAM, you are advised to reduce Whonix-Gateway RAM to 128 MB. No graphical desktop environment will be started in that case. A Whonix-Gateway without graphical desktop environment works as good as one with, it is just not that convenient. If you want, you can sometimes start a graphical desktop environment and sometimes only a terminal by toggling how much
+RAM is available to Whonix-Gateway. Documentation about this feature: <a href=https://www.whonix.org/wiki/Desktop>https://www.whonix.org/wiki/Desktop</p>
+<p>If you want to change the keyboard layout from the default \"us\" to something else:
+<blockquote>Start menu button -> Applications -> Settings -> System Settings -> input devices -> layout ->
+add yours and remove default one -> apply -> Done.</blockquote></p>
+</p>Default username: user<br></br>Default password: changeme</p>"""
+        question = "Show this message at startup?"
+        button = "yesno"
+        answer = int(check_output(["/usr/lib/whonix/generic_gui_message", itype, title, msg, question, button]))
+        if answer == 65536: # button 'No' pressed
+            f = open("/home/user/.whonix/first_use_check.done", "w")
             f.close()
-        elif (str(state)) == "0":
-            call("rm ~/.gateway/first_use_check.done", shell=True)
-
-    def center(self):
-
-        self.resize(False)
-        qr = self.frameGeometry()
-        cp = QtGui.QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
-
-
-def main():
-
-    app = QtGui.QApplication(sys.argv)
-    ex = Notice()
-    sys.exit(app.exec_())
-
-if __name__ == '__main__':
-    main()
