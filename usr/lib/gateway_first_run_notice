@@ -5,13 +5,15 @@ import sys
 import os
 from subprocess import check_output
 
-if os.path.exists("/home/user/.gateway"):
-    if os.path.exists("/home/user/.gateway/first_use_check.done"):
-        sys.exit(0)
-    else:
-        itype = "information"
-        title = "First use notice"
-        msg = """Welcome to Whonix-Gateway!
+if not os.path.exists("/home/user/.gateway"):
+    os.makedirs("/home/user/.gateway")
+
+if os.path.exists("/home/user/.gateway/first_use_check.done"):
+    sys.exit(0)
+else:
+    itype = "information"
+    title = "First use notice"
+    msg = """Welcome to Whonix-Gateway!
 <p>This is NOT a personal work station for your own private activities! So please do NOT use Whonix-Gateway
 for any purpose other than configuring Tor and Whonix.</p>
 <p>The more you learn about Whonix and anonymity, the safer you can become. Reading Whonix documentation
@@ -22,9 +24,9 @@ RAM is available to Whonix-Gateway. Documentation about this feature: <a href=ht
 <blockquote>Start menu button -> Applications -> Settings -> System Settings -> input devices -> layout ->
 add yours and remove default one -> apply -> Done.</blockquote></p>
 </p>Default username: user<br></br>Default password: changeme</p>"""
-        question = "Show this message at startup?"
-        button = "yesno"
-        answer = int(check_output(["/usr/lib/generic_gui_message", itype, title, msg, question, button]))
-        if answer == 65536: # button 'No' pressed
-            f = open("/home/user/.gateway/first_use_check.done", "w")
-            f.close()
+    question = "Show this message at startup?"
+    button = "yesno"
+    answer = int(check_output(["/usr/lib/generic_gui_message", itype, title, msg, question, button]))
+    if answer == 65536: # button 'No' pressed
+        f = open("/home/user/.gateway/first_use_check.done", "w")
+        f.close()
