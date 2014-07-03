@@ -4,5 +4,4 @@
 
 [Desktop Entry]
 Type=Application
-Terminal=true
 Exec=/usr/lib/gateway_first_run_notice
