@@ -26,7 +26,7 @@ add yours and remove default one -> apply -> Done.</blockquote></p>
 </p>Default username: user<br></br>Default password: changeme</p>"""
     question = "Show this message at startup?"
     button = "yesno"
-    answer = int(check_output(["/usr/lib/generic_gui_message", itype, title, msg, question, button]))
+    answer = int(check_output(["/usr/lib/msgcollector/generic_gui_message", itype, title, msg, question, button]))
     if answer == 65536: # button 'No' pressed
         f = open("/home/user/.gateway/first_use_check.done", "w")
         f.close()
