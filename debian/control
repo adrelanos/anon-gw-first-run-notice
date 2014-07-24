@@ -14,8 +14,10 @@ Standards-Version: 3.9.4
 
 Package: anon-gw-first-run-notice
 Architecture: all
-Depends: msgcollector, ${misc:Depends}
+Depends: python, msgcollector, ${misc:Depends}
 Description: First Run Notice for Anonymity Linux Distribution Gateways
  Warns users use not to use the gateway as a workstation.
  .
  Has a "do not show this message again" checkbox.
+ .
+ Can be safely removed.
