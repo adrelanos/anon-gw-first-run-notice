@@ -4,6 +4,8 @@ Warns users use not to use the gateway as a workstation.
 
 Has a "do not show this message again" checkbox.
 
+Can be safely removed.
+
 (This package description has been [automatically](https://github.com/Whonix/whonix-developer-meta-files/blob/master/debug-steps/packaging-helper-script) extracted and mirrored from `debian/control`.)
 
 # Generic Readme #
