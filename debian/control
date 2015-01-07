@@ -6,7 +6,7 @@ Source: anon-gw-first-run-notice
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 8), faketime
+Build-Depends: debhelper (>= 9), faketime
 Homepage: https://github.com/Whonix/anon-gw-first-run-notice
 Vcs-Browser: https://github.com/Whonix/anon-gw-first-run-notice
 Vcs-Git: https://github.com/Whonix/anon-gw-first-run-notice.git
