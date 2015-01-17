@@ -11,7 +11,7 @@ if not os.path.exists("/home/user/.gateway"):
 if os.path.exists("/home/user/.gateway/first_use_check.done"):
     sys.exit(0)
 else:
-    itype = "information"
+    itype = "info"
     title = "First use notice"
     msg = """Welcome to Whonix-Gateway!
 <p>This is NOT a personal work station for your own private activities! So please do NOT use Whonix-Gateway
